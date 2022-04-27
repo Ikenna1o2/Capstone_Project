@@ -8,15 +8,15 @@ The scope of the project is to display my webpage for the successful completion 
 
 # Approach: 
 
->> Amazon EKS was utilized for creating the cluster using eksctl utility as it is able to create a cluster within minutes with a single command. It uses AWS CloudFormation.
+> Amazon EKS was utilized for creating the cluster using eksctl utility as it is able to create a cluster within minutes with a single command. It uses AWS CloudFormation.
 
->> Docker was used for containerization of the application.
+> Docker was used for containerization of the application.
 
->> Rolling deployment strategy was utilized to move from preliminary version to the final version of the App.
+> Rolling deployment strategy was utilized to move from preliminary version to the final version of the App.
 
->> CIRCLECI was employed for CICD pipeline creation.
+> CIRCLECI was employed for CICD pipeline creation.
 
->> Captured the linting error as the project requirement advised. 
+> Captured the linting error as the project requirement advised. 
 
 # SetUp
 
