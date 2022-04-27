@@ -105,7 +105,8 @@ jobs:
               echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
               
               # configure kubectl
-              aws --region us-east-1 eks update-kubeconfig --name mycluster 
+              aws eks update-kubeconfig --name mycluster --region us-east-1
+              aws eks update-kubeconfig --name mycluster --region us-east-1 --role-arn arn:aws:iam::XXXXXXXXXXXX:role/testrole
               
               # test kubectl
               kubectl version
@@ -140,7 +141,8 @@ jobs:
               echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
               
               # configure kubectl
-              aws --region us-east-1 eks update-kubeconfig --name mycluster 
+              aws eks update-kubeconfig --name mycluster --region us-east-1
+              aws eks update-kubeconfig --name mycluster --region us-east-1 --role-arn arn:aws:iam::XXXXXXXXXXXX:role/testrole
               
               # test kubectl
               kubectl version
