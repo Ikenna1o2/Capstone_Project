@@ -106,7 +106,8 @@ jobs:
               
               # configure kubectl
               aws eks update-kubeconfig --name mycluster --region us-east-1
-                           
+              aws eks update-kubeconfig --name mycluster --region us-east-1 --role-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+              
               # test kubectl
               kubectl version
               # get services
@@ -141,6 +142,7 @@ jobs:
               
               # configure kubectl
               aws eks update-kubeconfig --name mycluster --region us-east-1
+              aws eks update-kubeconfig --name mycluster --region us-east-1 --role-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
                            
               # test kubectl
               kubectl version
