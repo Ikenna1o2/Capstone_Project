@@ -7,5 +7,5 @@ metadata:
 
 nodeGroups:
   - name: ng-1
-    instanceType: t3.medium
-    desiredCapacity: 20
+    instanceType: t2.micro
+    desiredCapacity: 10
