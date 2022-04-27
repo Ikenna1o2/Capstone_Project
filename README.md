@@ -32,12 +32,6 @@ eksctl version 0.83.0 for creating Kubernetes Cluster
 
       Command => eksctl create cluster -f cluster.yaml
 
-IAM Role for the Kubernetes Cluster
-
-      eksctl get iamidentitymapping --cluster mycluster
-      
-      eksctl create iamidentitymapping --cluster  mycluster --arn arn:aws:iam::106876110629:role/eksctl-mycluster-cluster-ServiceRole-TW8D1GYOMCIB --group system:masters --username Admin
-
 Environment Variables used:
 
 AWS_ACCESS_KEY_ID
