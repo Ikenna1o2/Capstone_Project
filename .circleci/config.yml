@@ -1,26 +1,54 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+            
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  linting-old:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: circleci/node:13.8.0
     steps:
       - checkout
+      - restore_cache:
+          keys: [linting]
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+            name: install dependencies
+            command: |
+              wget -O ./hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+              chmod +x ./hadolint
+      - run:
+          name: lint check 1
+          command: |
+            npm install --save-dev htmlhint
+            npx htmlhint "**/*.html"
+      - run:
+          name: lint check 2
+          command: |
+            ./hadolint ./app/Dockerfile
+      - save_cache:
+          paths: [node_modules]
+          key: linting
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  build-image-old:
+      docker:
+        - image: circleci/golang:1.15
+          auth:
+            username: ikenna1o2
+            password: $DOCKERHUB_PASSWORD  
+      steps:
+        - checkout
+        - setup_remote_docker:
+            version: 19.03.13
+        - run:
+            name: build and push docker image
+            command: |
+              cd app
+              docker build --tag=preappimage .
+              echo $DOCKERHUB_PASSWORD | docker login -u ikenna1o2 --password-stdin
+              docker tag preappimage ikenna1o2/preappimage
+              docker push ikenna1o2/preappimage
+
+        
 workflows:
-  say-hello-workflow:
+  default:
     jobs:
-      - say-hello
+      - linting-old
+      - build-image-old:
+          requires: [linting-old]
